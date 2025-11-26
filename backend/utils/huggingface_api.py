@@ -27,8 +27,8 @@ class HuggingFaceGenerator:
         self.api_key = api_key or Config.HUGGINGFACE_API_KEY
         self.model_id = model_id or Config.HUGGINGFACE_MODEL
         
-        # API endpoints
-        self.api_url = f"https://api-inference.huggingface.co/models/{self.model_id}"
+        # API endpoints - Updated to new Hugging Face router endpoint
+        self.api_url = f"https://router.huggingface.co/hf-inference/models/{self.model_id}"
         
         # Headers
         self.headers = {

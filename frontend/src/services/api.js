@@ -32,16 +32,41 @@ export const sketchAPI = {
     return response.data
   },
 
-  searchWithSketch: async (file, topK = 10, threshold = 0.5) => {
-    const formData = new FormData()
-    formData.append('file', file)
-    formData.append('top_k', topK)
-    formData.append('threshold', threshold)
+  searchWithSketch: async (fileOrSketchData, topK = 10, threshold = 0.5) => {
+    // Check if we have a File object or sketch data with URL/ID
+    if (fileOrSketchData instanceof File) {
+      // Use multipart form data for file upload
+      const formData = new FormData()
+      formData.append('file', fileOrSketchData)
+      formData.append('top_k', topK)
+      formData.append('threshold', threshold)
 
-    const response = await api.post('/api/sketch/search', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    })
-    return response.data
+      const response = await api.post('/api/sketch/search', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      return response.data
+    } else {
+      // Use JSON for sketch URL/ID (from generated sketches)
+      const payload = {
+        top_k: topK,
+        threshold: threshold
+      }
+      
+      // Check for sketch_id first, then sketch_url
+      if (fileOrSketchData.sketch_id) {
+        payload.sketch_id = fileOrSketchData.sketch_id
+      } else if (fileOrSketchData.sketch_url) {
+        payload.sketch_url = fileOrSketchData.sketch_url
+      } else if (typeof fileOrSketchData === 'string') {
+        payload.sketch_url = fileOrSketchData
+      } else {
+        // Fallback - try to extract any URL-like property
+        payload.sketch_url = fileOrSketchData.url || fileOrSketchData.path || 'unknown'
+      }
+      
+      const response = await api.post('/api/sketch/search', payload)
+      return response.data
+    }
   },
 
   getRecentSketches: async (userId = null, limit = 20) => {

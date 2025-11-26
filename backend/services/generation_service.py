@@ -52,7 +52,7 @@ class SketchGenerationService:
     
     def generate_from_prompt(self, prompt, user_id=None, save_to_db=True):
         """
-        Generate sketch from text prompt using AI
+        Generate sketch from text prompt using AI with OpenCV fallback
         
         Args:
             prompt: Text description
@@ -62,14 +62,27 @@ class SketchGenerationService:
         Returns:
             Generated sketch and metadata
         """
+        generation_method = 'ai'
+        sketch_image = None
+        
         try:
-            if not self.ai_available:
-                raise Exception("AI generation not available")
+            # Try AI generation first
+            if self.ai_available:
+                logger.info(f"Generating sketch from prompt using AI: '{prompt}'")
+                try:
+                    sketch_image = self.ai_generator.generate_sketch_from_prompt(prompt)
+                    generation_method = 'huggingface-api'
+                except Exception as ai_error:
+                    logger.warning(f"AI generation failed: {str(ai_error)}, falling back to OpenCV")
+                    sketch_image = None
             
-            logger.info(f"Generating sketch from prompt: '{prompt}'")
-            
-            # Generate sketch
-            sketch_image = self.ai_generator.generate_sketch_from_prompt(prompt)
+            # Fallback to OpenCV generator if AI fails or unavailable
+            if sketch_image is None:
+                logger.info(f"Generating sketch from prompt using OpenCV: '{prompt}'")
+                from opencv_sketch_generator import generate_realistic_face_sketch
+                sketch_array = generate_realistic_face_sketch(prompt)
+                sketch_image = Image.fromarray(sketch_array)
+                generation_method = 'opencv-procedural'
             
             # Generate unique filename
             sketch_id = str(uuid.uuid4())
@@ -95,14 +108,14 @@ class SketchGenerationService:
                 
                 self.sketch_repo.create(sketch_data)
             
-            logger.info(f"Sketch generated and saved: {sketch_path}")
+            logger.info(f"Sketch generated and saved: {sketch_path} (method: {generation_method})")
             
             return {
                 'sketch_id': sketch_id,
                 'sketch_url': sketch_path,
                 'sketch_image': sketch_image,
                 'prompt': prompt,
-                'generation_method': 'ai'
+                'generation_method': generation_method
             }
             
         except Exception as e:
