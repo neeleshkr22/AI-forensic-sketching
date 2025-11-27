@@ -61,7 +61,14 @@ export const sketchAPI = {
         payload.sketch_url = fileOrSketchData
       } else {
         // Fallback - try to extract any URL-like property
-        payload.sketch_url = fileOrSketchData.url || fileOrSketchData.path || 'unknown'
+        payload.sketch_url = fileOrSketchData.url || fileOrSketchData.path || fileOrSketchData
+      }
+      
+      // Pass prompt/description for intelligent matching
+      if (fileOrSketchData.prompt) {
+        payload.prompt = fileOrSketchData.prompt
+      } else if (fileOrSketchData.description) {
+        payload.prompt = fileOrSketchData.description
       }
       
       const response = await api.post('/api/sketch/search', payload)

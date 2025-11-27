@@ -70,10 +70,10 @@ export default function RecordManagement() {
     <div className="max-w-7xl mx-auto">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
+          <h1 className="text-4xl font-bold gradient-text mb-2">
             Criminal Records
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-gray-300">
             Manage and search criminal database
           </p>
         </div>
@@ -89,27 +89,27 @@ export default function RecordManagement() {
       {/* Stats */}
       {stats && (
         <div className="grid md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-sm font-medium text-gray-600 mb-1">Total Records</h3>
-            <p className="text-3xl font-bold text-gray-800">{stats.total_records}</p>
+          <div className="glass rounded-2xl shadow-2xl p-6 border border-cyan-500/30">
+            <h3 className="text-sm font-medium text-gray-300 mb-1">Total Records</h3>
+            <p className="text-3xl font-bold text-cyan-400">{stats.total_records}</p>
           </div>
-          <div className="bg-green-50 rounded-lg shadow p-6">
-            <h3 className="text-sm font-medium text-green-700 mb-1">Active</h3>
-            <p className="text-3xl font-bold text-green-800">{stats.active}</p>
+          <div className="glass rounded-2xl shadow-2xl p-6 border border-green-500/30">
+            <h3 className="text-sm font-medium text-gray-300 mb-1">Active</h3>
+            <p className="text-3xl font-bold text-green-400">{stats.active}</p>
           </div>
-          <div className="bg-blue-50 rounded-lg shadow p-6">
-            <h3 className="text-sm font-medium text-blue-700 mb-1">Caught</h3>
-            <p className="text-3xl font-bold text-blue-800">{stats.caught}</p>
+          <div className="glass rounded-2xl shadow-2xl p-6 border border-blue-500/30">
+            <h3 className="text-sm font-medium text-gray-300 mb-1">Caught</h3>
+            <p className="text-3xl font-bold text-blue-400">{stats.caught}</p>
           </div>
-          <div className="bg-gray-50 rounded-lg shadow p-6">
-            <h3 className="text-sm font-medium text-gray-700 mb-1">Inactive</h3>
-            <p className="text-3xl font-bold text-gray-800">{stats.inactive}</p>
+          <div className="glass rounded-2xl shadow-2xl p-6 border border-gray-500/30">
+            <h3 className="text-sm font-medium text-gray-300 mb-1">Inactive</h3>
+            <p className="text-3xl font-bold text-gray-400">{stats.inactive}</p>
           </div>
         </div>
       )}
 
       {/* Search and Filter */}
-      <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+      <div className="glass rounded-2xl shadow-2xl p-6 mb-8">
         <div className="grid md:grid-cols-2 gap-4">
           <div className="flex space-x-2">
             <input
@@ -130,7 +130,7 @@ export default function RecordManagement() {
           </div>
 
           <div className="flex items-center space-x-2">
-            <Filter className="w-5 h-5 text-gray-600" />
+            <Filter className="w-5 h-5 text-cyan-400" />
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
@@ -151,8 +151,8 @@ export default function RecordManagement() {
           <div className="loading-spinner mx-auto" />
         </div>
       ) : records.length === 0 ? (
-        <div className="bg-gray-50 rounded-xl p-12 text-center">
-          <p className="text-gray-600">No records found</p>
+        <div className="glass rounded-2xl p-12 text-center">
+          <p className="text-gray-300">No records found</p>
         </div>
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

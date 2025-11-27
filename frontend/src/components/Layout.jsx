@@ -11,14 +11,14 @@ export default function Layout({ children }) {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-950">
       {/* Header */}
-      <header className="bg-white shadow-md">
+      <header className="glass border-b border-white/10 shadow-2xl">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <Search className="w-8 h-8 text-primary-600" />
-              <h1 className="text-2xl font-bold text-gray-800">
+              <Search className="w-8 h-8 text-cyan-400" />
+              <h1 className="text-2xl font-bold text-gray-100">
                 AI Criminal Sketch Matcher
               </h1>
             </div>
@@ -28,10 +28,10 @@ export default function Layout({ children }) {
                 <Link
                   key={path}
                   to={path}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all ${
                     location.pathname === path
-                      ? 'bg-primary-100 text-primary-700'
-                      : 'text-gray-600 hover:bg-gray-100'
+                      ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-500/30'
+                      : 'text-gray-300 hover:bg-white/10'
                   }`}
                 >
                   <Icon className="w-5 h-5" />
@@ -49,7 +49,7 @@ export default function Layout({ children }) {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white mt-auto">
+      <footer className="glass border-t border-white/10 text-gray-300 mt-auto">
         <div className="container mx-auto px-4 py-6">
           <div className="text-center">
             <p className="text-sm">

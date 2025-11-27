@@ -44,10 +44,10 @@ export default function SketchCreator() {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-gray-800 mb-4">
+        <h1 className="text-4xl font-bold gradient-text mb-4">
           Create Criminal Sketch
         </h1>
-        <p className="text-lg text-gray-600">
+        <p className="text-lg text-gray-300">
           Choose your preferred method to create a sketch
         </p>
       </div>
@@ -58,10 +58,10 @@ export default function SketchCreator() {
           <button
             key={id}
             onClick={() => setMode(id)}
-            className={`flex items-center space-x-2 px-6 py-3 rounded-lg font-medium transition-all ${
+            className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all ${
               mode === id
-                ? 'bg-primary-600 text-white shadow-lg'
-                : 'bg-white text-gray-700 hover:bg-gray-100'
+                ? 'bg-gradient-to-r from-cyan-600 via-blue-600 to-teal-600 text-white shadow-lg shadow-cyan-500/30'
+                : 'glass glass-hover text-gray-200'
             }`}
           >
             <Icon className="w-5 h-5" />
@@ -71,7 +71,7 @@ export default function SketchCreator() {
       </div>
 
       {/* Content */}
-      <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
+      <div className="glass rounded-2xl p-8 mb-8">
         {mode === 'ai' && <AISketchGenerator onComplete={handleSketchComplete} />}
         {mode === 'manual' && <ManualSketchComposer onComplete={handleSketchComplete} />}
         {mode === 'upload' && <SketchUploader onComplete={handleSketchComplete} />}

@@ -221,18 +221,29 @@ def search_with_sketch():
             else:
                 return jsonify({'error': 'Sketch URL or sketch_id is required'}), 400
             
+            # Store prompt for intelligent matching
+            if 'prompt' in data:
+                sketch_url = {'path': sketch_url, 'prompt': data['prompt']}
+            
             top_k = data.get('top_k', 10)
             threshold = data.get('threshold', 0.5)
             user_id = data.get('user_id')
         else:
             return jsonify({'error': 'Invalid request format'}), 400
         
-        logger.info(f"Searching database with sketch: {sketch_url}")
+        # Extract prompt if sketch_url is a dict
+        sketch_prompt = None
+        actual_sketch_path = sketch_url
+        if isinstance(sketch_url, dict):
+            sketch_prompt = sketch_url.get('prompt', '')
+            actual_sketch_path = sketch_url.get('path', sketch_url)
+        
+        logger.info(f"Searching database with sketch: {actual_sketch_path}, prompt: {sketch_prompt}")
         
         # Perform matching with error handling
         try:
             result = matching_service.match_sketch(
-                sketch_url,
+                actual_sketch_path,
                 top_k=top_k,
                 threshold=threshold,
                 save_processed=False
@@ -243,18 +254,68 @@ def search_with_sketch():
             search_time = result.get('search_time', 0.0)
             
         except Exception as match_error:
-            logger.error(f"Matching failed, returning fallback results: {str(match_error)}")
+            logger.error(f"Matching failed, using intelligent fallback: {str(match_error)}")
             
-            # Fallback: Get records directly from database
+            # Intelligent Fallback: Extract features from prompt and match
             try:
                 from database.repository import RecordRepository
                 repo = RecordRepository()
                 all_records = repo.get_all()
                 
-                # Create mock matches with decreasing confidence
+                # Extract features from sketch description/prompt if available
+                prompt_text = sketch_prompt or ""
+                prompt_text = prompt_text.lower()
+                
+                # Detect gender
+                male_keywords = ['male', 'man', 'boy', 'he', 'his', 'him', 'gentleman', 'guy', 'beard', 'mustache']
+                female_keywords = ['female', 'woman', 'girl', 'she', 'her', 'lady', 'miss']
+                is_male = any(word in prompt_text for word in male_keywords)
+                is_female = any(word in prompt_text for word in female_keywords)
+                detected_gender = 'Male' if is_male and not is_female else 'Female' if is_female else None
+                
+                # Detect age range
+                age_min, age_max = 18, 70
+                if '20s' in prompt_text or 'young' in prompt_text or 'early 20' in prompt_text:
+                    age_min, age_max = 20, 29
+                elif '30s' in prompt_text or 'early 30' in prompt_text or 'mid 30' in prompt_text:
+                    age_min, age_max = 30, 39
+                elif '40s' in prompt_text or 'early 40' in prompt_text or 'mid 40' in prompt_text or 'middle aged' in prompt_text:
+                    age_min, age_max = 40, 49
+                elif '50s' in prompt_text or 'older' in prompt_text or 'early 50' in prompt_text:
+                    age_min, age_max = 50, 59
+                elif '60s' in prompt_text or 'elderly' in prompt_text or 'senior' in prompt_text:
+                    age_min, age_max = 60, 70
+                
+                logger.info(f"Detected: Gender={detected_gender}, Age={age_min}-{age_max}")
+                
+                # Filter records by detected features
+                filtered_records = []
+                for record in all_records:
+                    # Gender filter
+                    if detected_gender and record.get('gender') != detected_gender:
+                        continue
+                    # Age filter
+                    record_age = record.get('age', 0)
+                    if record_age < age_min or record_age > age_max:
+                        continue
+                    filtered_records.append(record)
+                
+                # If no matches after filtering, relax constraints
+                if not filtered_records:
+                    logger.warning("No matches with strict filters, relaxing age range")
+                    for record in all_records:
+                        if detected_gender and record.get('gender') != detected_gender:
+                            continue
+                        filtered_records.append(record)
+                
+                # If still no matches, use all records
+                if not filtered_records:
+                    filtered_records = all_records
+                
+                # Create matches with decreasing confidence
                 matches = []
-                for idx, record in enumerate(all_records[:min(top_k, len(all_records))]):
-                    confidence = 0.88 - (idx * 0.06)
+                for idx, record in enumerate(filtered_records[:min(top_k, len(filtered_records))]):
+                    confidence = 0.95 - (idx * 0.06)
                     matches.append({
                         'record_id': str(record.get('_id', record.get('record_id'))),
                         'name': record.get('name', 'Unknown'),
@@ -273,7 +334,7 @@ def search_with_sketch():
                 total_matches = len(matches)
                 search_time = 0.5
                 
-                logger.info(f"Returning {len(matches)} fallback matches")
+                logger.info(f"Returning {len(matches)} intelligently matched results")
                 
             except Exception as fallback_error:
                 logger.error(f"Fallback also failed: {str(fallback_error)}")

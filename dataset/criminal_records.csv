@@ -1,0 +1,25 @@
+record_id,name,age,gender,crime_type,location,status,description,confidence_score,date_added,last_seen
+CR2024001,John Anderson,35,Male,Assault,Los Angeles CA,Wanted,Male in mid-30s with short black hair brown eyes muscular build. Distinctive scar on left cheek.,0.95,2024-01-15,2024-11-20
+CR2024002,Michael Chen,42,Male,Fraud,San Francisco CA,Under Investigation,Male in early 40s Asian descent black hair with gray streaks glasses. Professional appearance.,0.89,2024-02-10,2024-11-18
+CR2024003,David Martinez,38,Male,Drug Trafficking,Chicago IL,Wanted,Male in late 30s Hispanic descent bald head goatee approximately 6'2" tall.,0.84,2024-03-05,2024-11-22
+CR2024004,Robert Taylor,29,Male,Burglary,Houston TX,Wanted,Male in late 20s with short brown hair blue eyes athletic build. Tattoo on right arm.,0.79,2024-04-12,2024-11-19
+CR2024005,James Wilson,45,Male,Armed Robbery,Phoenix AZ,Wanted,Male in mid-40s with gray hair hazel eyes medium build. Known to wear glasses.,0.73,2024-05-08,2024-11-15
+CR2024006,Carlos Hernandez,33,Male,Theft,Miami FL,Under Investigation,Male in early 30s with black hair brown eyes slim build. Distinctive facial hair.,0.68,2024-06-20,2024-11-10
+CR2024007,Sarah Williams,28,Female,Robbery,New York NY,Wanted,Female in late 20s with long brown hair hazel eyes approximately 5'6" tall. Last seen wearing dark jacket.,0.93,2024-01-20,2024-11-21
+CR2024008,Emily Rodriguez,31,Female,Theft,Miami FL,Wanted,Female in early 30s with curly red hair green eyes multiple tattoos on arms.,0.87,2024-02-28,2024-11-17
+CR2024009,Lisa Thompson,26,Female,Fraud,Boston MA,Under Investigation,Female in mid-20s with blonde hair blue eyes approximately 5'4" tall. Professional appearance.,0.82,2024-03-15,2024-11-16
+CR2024010,Amanda Foster,34,Female,Embezzlement,Seattle WA,Wanted,Female in mid-30s with short black hair brown eyes slim build. Wears designer clothes.,0.76,2024-04-22,2024-11-14
+CR2024011,Jessica Martinez,29,Female,Identity Theft,Denver CO,Wanted,Female in late 20s with long dark hair green eyes approximately 5'7" tall.,0.71,2024-05-30,2024-11-12
+CR2024012,Rachel Kim,37,Female,Assault,Portland OR,Under Investigation,Female in late 30s Asian descent black hair brown eyes. Known to change appearance frequently.,0.65,2024-06-18,2024-11-08
+CR2024013,Marcus Johnson,41,Male,Money Laundering,Dallas TX,Wanted,Male in early 40s African American short fade haircut brown eyes well-dressed. Known associate of crime syndicate.,0.91,2024-07-05,2024-11-23
+CR2024014,Thomas Brown,36,Male,Kidnapping,Philadelphia PA,Wanted,Male in mid-30s with sandy blonde hair green eyes medium build. Visible neck tattoo.,0.86,2024-07-20,2024-11-11
+CR2024015,Kevin White,52,Male,Murder,Detroit MI,Wanted,Male in early 50s with receding hairline brown hair hazel eyes heavy build. Scar above right eyebrow.,0.80,2024-08-12,2024-11-09
+CR2024016,Daniel Lee,27,Male,Arson,San Diego CA,Wanted,Male in late 20s Asian American short black hair brown eyes athletic build. Known to wear hoodies.,0.74,2024-08-25,2024-11-07
+CR2024017,Christopher Garcia,39,Male,Extortion,Las Vegas NV,Under Investigation,Male in late 30s Hispanic with slicked-back black hair brown eyes muscular. Multiple rings on fingers.,0.69,2024-09-10,2024-11-05
+CR2024018,Anthony Davis,44,Male,Drug Trafficking,Atlanta GA,Wanted,Male in mid-40s African American bald clean-shaven brown eyes tall and imposing presence.,0.63,2024-09-28,2024-11-03
+CR2024019,Jennifer Lewis,32,Female,Cybercrime,Austin TX,Under Investigation,Female in early 30s with straight black hair brown eyes glasses. Tech-savvy appearance casual clothing.,0.88,2024-07-15,2024-11-13
+CR2024020,Michelle Scott,40,Female,Fraud,Washington DC,Wanted,Female in early 40s with shoulder-length brown hair blue eyes professional attire. Former bank employee.,0.83,2024-08-03,2024-11-06
+CR2024021,Angela Taylor,25,Female,Shoplifting,Minneapolis MN,Under Investigation,Female in mid-20s with dyed purple hair brown eyes multiple piercings slim build.,0.77,2024-08-20,2024-11-04
+CR2024022,Nicole Martinez,35,Female,Drug Possession,Phoenix AZ,Wanted,Female in mid-30s Hispanic with wavy dark hair brown eyes approximately 5'5" tall. Known drug user.,0.72,2024-09-05,2024-11-02
+CR2024023,Stephanie Adams,29,Female,Prostitution,Las Vegas NV,Under Investigation,Female in late 20s with long blonde hair blue eyes heavy makeup. Often seen in downtown area.,0.67,2024-09-22,2024-10-31
+CR2024024,Laura Hall,43,Female,Child Neglect,Cleveland OH,Wanted,Female in early 40s with short gray-streaked hair green eyes thin build. Multiple previous charges.,0.61,2024-10-08,2024-10-29

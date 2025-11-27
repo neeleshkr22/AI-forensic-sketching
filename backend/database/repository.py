@@ -14,7 +14,7 @@ class RecordRepository:
     """Repository for Criminal Records"""
     
     def __init__(self):
-        self.collection = get_db().get_collection('records')
+        self.collection = get_db().get_collection('criminal_records')
     
     def create(self, record: Dict[str, Any]) -> str:
         """Create a new criminal record"""

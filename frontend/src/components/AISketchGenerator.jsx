@@ -37,10 +37,10 @@ export default function AISketchGenerator({ onComplete }) {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-xl font-semibold text-gray-800 mb-4">
+        <h3 className="text-xl font-semibold text-gray-100 mb-4">
           Describe the Person
         </h3>
-        <p className="text-gray-600 mb-4">
+        <p className="text-gray-300 mb-4">
           Provide a detailed description of facial features, age, gender, hair color, etc.
         </p>
 
@@ -54,13 +54,13 @@ export default function AISketchGenerator({ onComplete }) {
 
       {/* Example Prompts */}
       <div>
-        <p className="text-sm text-gray-600 mb-2">Quick examples:</p>
+        <p className="text-sm text-gray-300 mb-2">Quick examples:</p>
         <div className="flex flex-wrap gap-2">
           {examplePrompts.map((example, index) => (
             <button
               key={index}
               onClick={() => setPrompt(example)}
-              className="text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700 transition-colors"
+              className="text-sm px-3 py-1 glass glass-hover rounded-full text-gray-200 transition-colors"
             >
               {example.substring(0, 30)}...
             </button>
@@ -89,9 +89,9 @@ export default function AISketchGenerator({ onComplete }) {
 
       {/* Generated Sketch Preview */}
       {generatedSketch && (
-        <div className="border-2 border-gray-200 rounded-lg p-4">
-          <h4 className="font-semibold text-gray-800 mb-3">Generated Sketch</h4>
-          <div className="bg-gray-50 rounded-lg p-4 flex items-center justify-center">
+        <div className="glass rounded-2xl p-4">
+          <h4 className="font-semibold text-gray-100 mb-3">Generated Sketch</h4>
+          <div className="bg-gray-900/50 rounded-lg p-4 flex items-center justify-center">
             <img
               src={sketchAPI.getSketchImage(generatedSketch.sketch_id)}
               alt="Generated sketch"
